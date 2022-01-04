@@ -86,14 +86,220 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/core.js":
+/*!****************************!*\
+  !*** ./src/js/lib/core.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const $ = function (selector) {
+  return new $.prototype.init(selector);
+};
+
+$.prototype.init = function (selector) {
+  if (!selector) {
+    return this; //  возвращает пустой объект{}
+  }
+
+  if (selector.tagName) {
+    this[0] = selector;
+    this.length = 1;
+    return this;
+  }
+
+  Object.assign(this, document.querySelectorAll(selector));
+  this.length = document.querySelectorAll(selector).length;
+  return this;
+};
+
+$.prototype.init.prototype = $.prototype;
+window.$ = $;
+/* harmony default export */ __webpack_exports__["default"] = ($);
+
+/***/ }),
+
+/***/ "./src/js/lib/lib.js":
+/*!***************************!*\
+  !*** ./src/js/lib/lib.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/lib/core.js");
+/* harmony import */ var _modules_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display */ "./src/js/lib/modules/display.js");
+/* harmony import */ var _modules_classes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes */ "./src/js/lib/modules/classes.js");
+/* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/actions.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/actions.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function (eventName, callback) {
+  if (!eventName || !callback) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].addEventListener(eventName, callback);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function (eventName, callback) {
+  if (!eventName || !callback) {
+    return this;
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    this[i].removeEventListener(eventName, callback);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handler) {
+  for (let i = 0; i < this.length; i++) {
+    if (handler) {
+      this[i].addEventListener('click', handler);
+    } else {
+      this[i].click();
+    }
+  }
+
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/classes.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/classes.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addClass = function () {
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.add(...arguments);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeClass = function () {
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.remove(...arguments);
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleClass = function (classNames) {
+  for (let i = 0; i < this.length; i++) {
+    this[i].classList.toggle(classNames);
+  }
+
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/display.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/display.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.show = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].style) {
+      continue;
+    }
+
+    this[i].style.display = '';
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hide = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].style) {
+      continue;
+    }
+
+    this[i].style.display = 'none';
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (!this[i].style) {
+      continue;
+    }
+
+    if (this[i].style.display === 'none') {
+      this[i].style.display = 'block';
+    } else {
+      this[i].style.display = '';
+    }
+
+    this[i].style.display = 'none';
+  }
+
+  return this;
+};
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/tatiana/projects/UI-library/src/js/main.js: Missing semicolon. (3:21)\n\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[32m'./lib/lib'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 3 |\u001b[39m $(\u001b[32m'.active'\u001b[39m)\u001b[33m.\u001b[39mtoggle())\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at Parser._raise (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:569:17)\n    at Parser.raiseWithData (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:562:17)\n    at Parser.raise (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:523:17)\n    at Parser.semicolon (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:3571:10)\n    at Parser.parseExpressionStatement (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:14068:10)\n    at Parser.parseStatementContent (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:13659:19)\n    at Parser.parseStatement (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:13521:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:14110:25)\n    at Parser.parseBlockBody (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:14101:10)\n    at Parser.parseProgram (/Users/tatiana/projects/UI-library/node_modules/@babel/parser/lib/index.js:13441:10)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
+
+$('button').on('click', function () {
+  $(this).toggleClass('active');
+});
 
 /***/ })
 
